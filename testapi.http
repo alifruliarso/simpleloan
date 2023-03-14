@@ -1,0 +1,92 @@
+POST http://localhost:8000/api/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "mark@example.com",
+  "password": "0987654321"
+}
+###
+POST http://localhost:8000/api/signup
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Bang Mark",
+  "email": "mark@example.com",
+  "password": "0987654321",
+  "password_confirmation":"0987654321"
+}
+
+###
+GET http://localhost:8000/api/profile
+Accept: application/json
+Authorization: Bearer 1|DRt1cOTGTAsTvExtqXUydcVsnPS1TDnpWaMEonHy
+###
+POST  http://localhost:8000/api/loans
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 1|DRt1cOTGTAsTvExtqXUydcVsnPS1TDnpWaMEonHy
+
+{
+  "amount": 30000,
+  "term":3
+}
+###
+GET  http://localhost:8000/api/loans
+Accept: application/json
+Authorization: Bearer 1|DRt1cOTGTAsTvExtqXUydcVsnPS1TDnpWaMEonHy
+###
+POST http://localhost:8000/api/admin/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "root@admin.com",
+  "password": "123456"
+}
+###
+PUT  http://localhost:8000/api/loans/1/approve
+Accept: application/json
+Authorization: Bearer 3|u6HFQ4nc1SPULV1f87a1Wor5hOPbGShmGS6oBKyZ
+###
+POST http://localhost:8000/api/loans/pay
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 1|DRt1cOTGTAsTvExtqXUydcVsnPS1TDnpWaMEonHy
+
+{
+  "loan_id":2,
+  "amount":10000
+}
+###
+GET http://localhost:8000/api/loans/2/repayment?status=
+Accept: application/json
+Authorization: Bearer 1|DRt1cOTGTAsTvExtqXUydcVsnPS1TDnpWaMEonHy
+###
+POST http://localhost:8000/api/signup
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Bang Dum",
+  "email": "dum@example.com",
+  "password": "qwer123",
+  "password_confirmation":"qwer123"
+}
+###test denied
+GET http://localhost:8000/api/loans/2/repayment?status=
+Accept: application/json
+Authorization: Bearer 5|5Hj9qfdzQvK0W7p34mr5Y93z7LaZ1IrxglECZfXV
+###test denied
+POST http://localhost:8000/api/loans/pay
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 5|5Hj9qfdzQvK0W7p34mr5Y93z7LaZ1IrxglECZfXV
+
+{
+  "loan_id":2,
+  "amount":10000
+}
+###https://sqlmap.org/ Automatic SQL injection and database takeover tool
+#python sqlmap.py -v -u "http://localhost:8000/api/loans/1/repayment" -H "Authorization: Bearer 4|fXeuvBacmS6nvIbVmmlOa1gThVqB0fU452M1cCW2" -f --tamper='space2comment' --level=5
